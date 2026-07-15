@@ -6,7 +6,7 @@
 (function (global) {
   'use strict';
 
-  const CACHE_VERSION = 3;
+  const CACHE_VERSION = 4;
   const DOCS_DIR = 'aulas/'; // pasta real dos PDFs no workspace atual
   const MANIFEST_URL = DOCS_DIR + 'manifest.json';
 
@@ -239,24 +239,39 @@
     }
 
     // Constrói cada capítulo
-    const chapters = chapterRanges.map((r, idx) => {
+    const rawChapters = chapterRanges.map((r, idx) => {
       const sub = labeled.slice(r.start, r.end);
       const pageStart = sub[0]?.page || 1;
       const pageEnd = sub[sub.length - 1]?.page || pageStart;
       const blocks = buildBlocks(sub, bodySize, headingCutoff);
       const plain = blocks.filter((b) => b.type !== 'code').map((b) => Array.isArray(b.content) ? b.content.join(' ') : b.content).join('\n');
       const chapterTitle = r.title && r.title.length > 3 ? r.title : `Parte ${idx + 1}`;
-      const chapterId = `${moduleId}::c${idx + 1}-${Utils.slugify(chapterTitle)}`.slice(0, 90);
       return {
-        id: chapterId,
-        moduleId,
-        index: idx + 1,
         title: chapterTitle,
         pageStart,
         pageEnd,
         blocks,
         text: plain,
         wordCount: Utils.wordCount(plain),
+      };
+    });
+
+    // Mescla capítulos vazios (capas, subtítulos soltos) no vizinho para
+    // não gerar capítulos com zero conteúdo. Preserva blocos não-título.
+    const coalesced = coalesceShortChapters(rawChapters, 30);
+
+    const chapters = coalesced.map((c, idx) => {
+      const chapterId = `${moduleId}::c${idx + 1}-${Utils.slugify(c.title)}`.slice(0, 90);
+      return {
+        id: chapterId,
+        moduleId,
+        index: idx + 1,
+        title: c.title,
+        pageStart: c.pageStart,
+        pageEnd: c.pageEnd,
+        blocks: c.blocks,
+        text: c.text,
+        wordCount: c.wordCount,
       };
     });
 
@@ -410,6 +425,45 @@
     if (/[{};=<>]{2,}/.test(t)) return true;
     if (/^(function|const|let|var|import|class|def |public |private |if\s*\()/.test(t)) return true;
     return false;
+  }
+
+  // Mescla capítulos com muito pouco conteúdo (típico de capas / subtítulos soltos)
+  // no vizinho, preservando blocos de corpo. Preferência: absorver no próximo capítulo.
+  function coalesceShortChapters(chapters, minWords) {
+    if (!chapters || chapters.length <= 1) return chapters || [];
+    const out = [];
+    for (let i = 0; i < chapters.length; i++) {
+      const c = chapters[i];
+      if (c.wordCount >= minWords) { out.push(c); continue; }
+
+      // Sem vizinho útil (só um capítulo curto) → mantém como está
+      const hasNext = i < chapters.length - 1;
+      const hasPrev = out.length > 0;
+      if (!hasNext && !hasPrev) { out.push(c); continue; }
+
+      // Blocos que valem preservar (removemos títulos redundantes da capa)
+      const extraBlocks = c.blocks.filter((b) => b.type !== 'h2' && b.type !== 'h3');
+      const extraText = extraBlocks
+        .map((b) => Array.isArray(b.content) ? b.content.join(' ') : b.content)
+        .filter(Boolean)
+        .join('\n');
+
+      if (hasNext) {
+        const next = chapters[i + 1];
+        next.pageStart = Math.min(c.pageStart, next.pageStart);
+        next.blocks = extraBlocks.concat(next.blocks);
+        next.text = (extraText ? extraText + '\n' : '') + next.text;
+        next.wordCount = Utils.wordCount(next.text);
+      } else {
+        const prev = out[out.length - 1];
+        prev.pageEnd = Math.max(prev.pageEnd, c.pageEnd);
+        prev.blocks = prev.blocks.concat(extraBlocks);
+        prev.text = prev.text + (extraText ? '\n' + extraText : '');
+        prev.wordCount = Utils.wordCount(prev.text);
+      }
+    }
+    // Garante que sempre haja pelo menos um capítulo
+    return out.length ? out : chapters;
   }
 
   function splitByPageGroups(labeled, pagesPerChunk) {

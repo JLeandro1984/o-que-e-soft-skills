@@ -12,7 +12,19 @@
   // ─── API ──────────────────────────────────────────────────────
   Quiz.buildBank = function (chapter) {
     if (bankCache[chapter.id]) return bankCache[chapter.id];
-    const q = generateForChapter(chapter);
+    let q = generateForChapter(chapter);
+    // Fallback: capítulo com pouquíssimo conteúdo → usa texto do módulo inteiro
+    if (q.length === 0) {
+      const siblings = PDFIngest.getAllChapters().filter(
+        (c) => c.moduleId === chapter.moduleId && c.id !== chapter.id
+      );
+      if (siblings.length) {
+        const mergedText = [chapter.text, ...siblings.map((s) => s.text)].filter(Boolean).join('\n');
+        const mergedBlocks = siblings.reduce((acc, s) => acc.concat(s.blocks || []), (chapter.blocks || []).slice());
+        const proxy = Object.assign({}, chapter, { text: mergedText, blocks: mergedBlocks });
+        q = generateForChapter(proxy);
+      }
+    }
     bankCache[chapter.id] = q;
     return q;
   };
