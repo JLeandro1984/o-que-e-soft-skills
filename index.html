@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="pt-br" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Plataforma premium de estudos gerada a partir das apostilas de soft skills." />
+  <meta name="theme-color" content="#4f46e5" />
+  <meta property="og:title" content="Soft Skills — Plataforma de estudos" />
+  <meta property="og:description" content="Estude, pratique e certifique-se com base nas apostilas oficiais." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary" />
+  <title>Soft Skills — Plataforma de estudos</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/dark.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "Soft Skills para pessoas desenvolvedoras",
+    "description": "Plataforma local de estudos gerada a partir de apostilas em PDF.",
+    "provider": { "@type": "Organization", "name": "Estudo Local" }
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Pular para o conteúdo</a>
+
+  <div class="app-shell" id="app-shell">
+    <aside class="sidebar" id="sidebar" aria-label="Navegação principal">
+      <div class="sidebar__brand">
+        <div class="brand__mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5a2 2 0 0 1 2-2h9l5 5v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z"/><path d="M14 3v6h6"/><path d="M8 13h8M8 17h5"/></svg>
+        </div>
+        <div class="brand__text">
+          <span class="brand__name">Soft skills</span>
+          <span class="brand__sub">Plataforma de estudos</span>
+        </div>
+        <button class="sidebar__close" id="sidebar-close" aria-label="Fechar menu">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <nav class="sidebar__nav" id="sidebar-nav" aria-label="Módulos e capítulos">
+        <div class="nav__placeholder">Carregando conteúdo…</div>
+      </nav>
+
+      <div class="sidebar__footer">
+        <div class="progress">
+          <div class="progress__row">
+            <span class="progress__label">Progresso geral</span>
+            <span class="progress__value" id="global-progress-value">0%</span>
+          </div>
+          <div class="progress__track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="global-progress-bar">
+            <div class="progress__fill" style="width:0%"></div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <div class="sidebar-backdrop" id="sidebar-backdrop" hidden></div>
+
+    <div class="workspace">
+      <header class="header" role="banner">
+        <button class="icon-btn header__menu" id="menu-toggle" aria-label="Abrir menu" aria-controls="sidebar" aria-expanded="false">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+
+        <div class="search" role="search">
+          <label class="search__label" for="global-search">Buscar</label>
+          <span class="search__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          </span>
+          <input id="global-search" class="search__input" type="search" placeholder="Buscar em todo o conteúdo…" autocomplete="off" />
+          <div class="search__results" id="search-results" hidden></div>
+        </div>
+
+        <button class="icon-btn" id="theme-toggle" aria-label="Alternar tema claro/escuro">
+          <svg class="icon-sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.5 1.5M17.6 17.6l1.5 1.5M2 12h2M20 12h2M4.9 19.1l1.5-1.5M17.6 6.4l1.5-1.5"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+        </button>
+
+        <button class="avatar" id="user-avatar" aria-label="Perfil do estudante" title="Perfil">
+          <span id="avatar-initials">EA</span>
+        </button>
+      </header>
+
+      <div class="breadcrumb" id="breadcrumb" aria-label="Trilha de navegação">
+        <a href="#/">Início</a>
+      </div>
+
+      <main class="main" id="main-content" tabindex="-1">
+        <div class="loading-screen" id="loading-screen">
+          <div class="spinner" aria-hidden="true"></div>
+          <p class="loading-screen__text">Preparando as apostilas…</p>
+          <div class="loading-screen__bar"><div class="loading-screen__fill" id="loading-fill" style="width:0%"></div></div>
+          <small class="loading-screen__hint" id="loading-hint">Isso acontece apenas na primeira vez.</small>
+        </div>
+      </main>
+
+      <button class="back-to-top" id="back-to-top" aria-label="Voltar ao topo" hidden>
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m6 15 6-6 6 6"/></svg>
+      </button>
+
+      <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+    </div>
+  </div>
+
+  <!-- Templates são renderizados dinamicamente pelos módulos JS -->
+
+  <script src="vendor/pdfjs/pdf.min.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/pdf.js"></script>
+  <script src="js/menu.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/quiz.js"></script>
+  <script src="js/simulator.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/certificate.js"></script>
+  <script src="js/download.js"></script>
+  <script src="js/viewer.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
