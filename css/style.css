@@ -1,0 +1,197 @@
+/* style.css — Tokens, reset e tipografia base */
+
+:root {
+  color-scheme: light;
+
+  /* Paleta base */
+  --bg: #f6f7fb;
+  --surface: #ffffff;
+  --surface-2: #fbfbfd;
+  --surface-hover: #f1f2f7;
+  --text: #1c1d24;
+  --text-muted: #5b5f6d;
+  --text-soft: #838795;
+  --border: #e6e7ee;
+  --border-strong: #d5d7e2;
+
+  /* Cores de acento — uso restrito e semântico */
+  --accent: #4f46e5;
+  --accent-weak: #eef0ff;
+  --accent-strong: #3b32c9;
+  --accent-contrast: #ffffff;
+
+  --success: #16a34a;
+  --success-weak: #e7f7ec;
+  --success-strong: #12803b;
+
+  --warning: #b26a00;
+  --warning-weak: #fdf1dc;
+  --warning-strong: #8a5100;
+
+  --danger: #b42318;
+  --danger-weak: #fdecea;
+  --danger-strong: #8a1a12;
+
+  --info: #0369a1;
+  --info-weak: #e2f2fb;
+  --info-strong: #024f78;
+
+  --neutral: #4b5563;
+  --neutral-weak: #eef0f3;
+
+  /* Tipografia */
+  --font-sans: "Inter", "Segoe UI", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", ui-monospace, Consolas, "Liberation Mono", monospace;
+
+  --fs-xs: 12px;
+  --fs-sm: 13px;
+  --fs-base: 14px;
+  --fs-md: 15px;
+  --fs-lg: 18px;
+  --fs-xl: 22px;
+  --fs-2xl: 28px;
+  --fs-3xl: 36px;
+
+  --fw-regular: 400;
+  --fw-medium: 500;
+
+  /* Espaçamento e raios */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-8: 32px;
+  --sp-10: 40px;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-pill: 999px;
+
+  --border-hair: 1px;
+  --border-thick: 2px;
+
+  --shadow-soft: 0 1px 2px rgba(18, 22, 43, 0.04);
+
+  /* Layout */
+  --sidebar-w: 220px;
+  --header-h: 60px;
+
+  /* Motion */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast: 120ms;
+  --dur: 200ms;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: var(--fs-base);
+  font-weight: var(--fw-regular);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body { overflow: hidden; } /* rolagem no <main> */
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; text-decoration-thickness: 1px; }
+
+h1, h2, h3, h4, h5 {
+  font-weight: var(--fw-medium);
+  line-height: 1.25;
+  margin: 0 0 var(--sp-3);
+  color: var(--text);
+  letter-spacing: -0.005em;
+}
+h1 { font-size: var(--fs-2xl); }
+h2 { font-size: var(--fs-xl); }
+h3 { font-size: var(--fs-lg); }
+h4 { font-size: var(--fs-md); }
+
+p { margin: 0 0 var(--sp-3); color: var(--text); }
+small { color: var(--text-muted); }
+
+ul, ol { margin: 0 0 var(--sp-3); padding-left: 1.35rem; }
+ul li, ol li { margin-bottom: var(--sp-1); }
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  border: 0;
+  background: transparent;
+  color: inherit;
+}
+
+input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+img, svg { display: block; max-width: 100%; }
+
+hr { border: 0; border-top: var(--border-hair) solid var(--border); margin: var(--sp-5) 0; }
+
+kbd {
+  display: inline-block;
+  padding: 1px 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--text-muted);
+}
+
+::selection { background: var(--accent-weak); color: var(--accent-strong); }
+
+/* Foco visível — acessibilidade */
+:focus { outline: none; }
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--accent);
+  color: var(--accent-contrast);
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: 0 0 var(--radius-md) 0;
+  z-index: 1000;
+}
+.skip-link:focus { left: 0; }
+
+/* Scrollbar sutil */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}
+*::-webkit-scrollbar { width: 8px; height: 8px; }
+*::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 8px; }
+*::-webkit-scrollbar-track { background: transparent; }
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}

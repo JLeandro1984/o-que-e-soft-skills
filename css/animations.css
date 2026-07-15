@@ -1,0 +1,45 @@
+/* animations.css — Micro-interações discretas */
+
+@keyframes spin {
+  from { transform: rotate(0); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-in-left {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(0); }
+}
+
+@keyframes fade-in-backdrop {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.fade-in { animation: fade-in var(--dur) var(--ease); }
+.main > * { animation: fade-in 240ms var(--ease); }
+
+.sidebar-backdrop { animation: fade-in-backdrop 180ms var(--ease); }
+
+.toast { animation: fade-in 180ms var(--ease); }
+
+/* Progresso preenchendo suavemente */
+.progress__fill { transition: width 400ms var(--ease); }
+
+/* Micro-hover em cards */
+.module-card, .download-card, .card {
+  transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+
+/* Reduzir movimento se solicitado */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+  }
+}

@@ -1,0 +1,75 @@
+/* responsive.css — Breakpoints: tablet (≤1024) e mobile (≤768) */
+
+@media (max-width: 1024px) {
+  .main { padding: var(--sp-5) var(--sp-5) var(--sp-8); }
+  .breadcrumb { padding: var(--sp-3) var(--sp-5); }
+  .certificate { padding: 40px 32px; }
+  .certificate__grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --header-h: 56px;
+    --sidebar-w: 260px;
+  }
+
+  .app-shell { grid-template-columns: 1fr; }
+
+  .sidebar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 100vh;
+    width: var(--sidebar-w);
+    transform: translateX(-100%);
+    transition: transform var(--dur) var(--ease);
+    box-shadow: 0 12px 30px rgba(15, 17, 32, 0.24);
+  }
+  .sidebar.is-open { transform: translateX(0); animation: slide-in-left 220ms var(--ease); }
+
+  .sidebar__close { display: grid; }
+
+  .header__menu { display: grid; }
+
+  .workspace {
+    grid-column: 1;
+    grid-template-rows: var(--header-h) auto 1fr;
+  }
+
+  .main { padding: var(--sp-4) var(--sp-4) var(--sp-8); }
+  .breadcrumb { padding: var(--sp-3) var(--sp-4); font-size: var(--fs-xs); }
+
+  .search__input { height: 34px; }
+
+  .grid-metrics { grid-template-columns: repeat(2, 1fr); }
+  .grid-cards { grid-template-columns: 1fr; }
+
+  .chapter-nav { flex-direction: column; }
+  .chapter-nav__btn { min-width: 0; }
+
+  .certificate { padding: 24px 14px; }
+  .certificate__frame { padding: 24px 16px; }
+  .certificate__title { font-size: var(--fs-2xl); }
+  .certificate__name { font-size: var(--fs-xl); }
+  .certificate__grid { grid-template-columns: 1fr 1fr; gap: var(--sp-3); }
+  .certificate__actions { flex-direction: column; }
+
+  .dashboard-row { grid-template-columns: 1fr; }
+
+  .quiz__match { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .grid-metrics { grid-template-columns: 1fr; }
+  .card__value { font-size: var(--fs-xl); }
+  .main { padding: var(--sp-3) var(--sp-3) var(--sp-6); }
+}
+
+/* Impressão — para o certificado */
+@media print {
+  body { overflow: visible; background: #fff; }
+  .sidebar, .header, .breadcrumb, .back-to-top, .certificate__actions, .toast { display: none !important; }
+  .app-shell { display: block; height: auto; }
+  .workspace { display: block; height: auto; }
+  .main { overflow: visible; padding: 0; background: #fff; }
+  .certificate { border: 0; box-shadow: none; }
+}
