@@ -28,6 +28,7 @@
     // Fixos no topo
     const fixed = [
       { href: '#/',           icon: 'home',       label: 'Início' },
+      { href: '#/plano',      icon: 'lightbulb',  label: 'Plano de estudos' },
       { href: '#/dashboard',  icon: 'dashboard',  label: 'Dashboard' },
     ];
     fixed.forEach((it) => nav.appendChild(fixedItem(it)));

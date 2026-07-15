@@ -101,6 +101,7 @@
   // ─── Rotas ────────────────────────────────────────────────────
   function registerRoutes() {
     Router.on('', renderHome);
+    Router.on('plano', () => { setBreadcrumb(['Início', 'Plano de estudos']); Plan.render(); });
     Router.on('dashboard', () => { setBreadcrumb(['Início', 'Dashboard']); Dashboard.render(); });
     Router.on('downloads', () => { setBreadcrumb(['Início', 'Downloads']); Download.render(); });
     Router.on('visualizar/:mid', (p) => {
@@ -146,6 +147,10 @@
         <div class="badge badge--accent">${Utils.icon('book', 12)} Treinamento local</div>
         <h1>Soft skills para pessoas desenvolvedoras</h1>
         <p>Estude, pratique e certifique-se sem depender de rede. Todo o conteúdo é extraído automaticamente dos PDFs em <code>aulas/</code> e organizado em módulos e capítulos navegáveis.</p>
+        <div class="btn-group" style="margin-top: 12px;">
+          <a class="btn btn--primary" href="#/plano">${Utils.icon('lightbulb', 14)} Ver objetivo e fontes originais</a>
+          <a class="btn btn--ghost" href="#/dashboard">${Utils.icon('dashboard', 14)} Meu progresso</a>
+        </div>
       </div>
 
       <div class="grid-metrics">
