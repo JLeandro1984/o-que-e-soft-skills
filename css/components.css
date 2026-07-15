@@ -731,3 +731,37 @@
   .viewer__group--end { margin-left: 0; width: 100%; }
   .viewer__stage { padding: var(--sp-2); min-height: 360px; }
 }
+
+/* ─── Plano de estudos ────────────────────────────────────────── */
+.plan-page .plan-section { margin-top: var(--sp-6); }
+.plan-page .plan-lead { color: var(--text-muted); margin: 0 0 var(--sp-4); max-width: 720px; }
+.plan-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.plan-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--sp-4);
+}
+.plan-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: var(--sp-5);
+}
+.plan-list { margin: 6px 0 0; padding-left: 20px; color: var(--text-muted); }
+.plan-list li { margin: 4px 0; }
+.plan-list--compact { margin: 0; padding-left: 18px; font-size: var(--fs-sm); }
+
+.plan-source { display: flex; flex-direction: column; gap: var(--sp-3); }
+.plan-source__label {
+  font-size: var(--fs-xs);
+  color: var(--text-soft);
+  letter-spacing: 0.02em;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+.plan-source__files {
+  padding-top: var(--sp-3);
+  border-top: var(--border-hair) solid var(--border);
+}
+.plan-source__actions { margin-top: auto; display: flex; gap: 8px; flex-wrap: wrap; }
